@@ -1,0 +1,28 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPosts, formatDate, readingTime } from '../../utils/posts';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({ params: { id: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const { title, description, date, tags } = post.data;
+---
+
+<BaseLayout title={title} description={description}>
+  <article>
+    <p><a href="/blog">Back to all posts</a></p>
+    <h1>{title}</h1>
+    <p class="muted">
+      <time datetime={date.toISOString()}>{formatDate(date)}</time> · {readingTime(post.body)} min read
+      {tags.length > 0 && <span> · {tags.join(', ')}</span>}
+    </p>
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

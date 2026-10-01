@@ -1,17 +1,41 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CodeCard from '../components/CodeCard.astro';
+import PostCard from '../components/PostCard.astro';
+import { getPosts } from '../utils/posts';
 
+const latest = (await getPosts()).slice(0, 3);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout>
+  <section>
+    <h1>Hi, I'm Shahriar Al Shihab. I build for the web and write down what I learn.</h1>
+    <p class="lead">
+      I'm a full-stack developer from Bangladesh. I like clean interfaces,and projects
+      that actually ship.
+    </p>
+    <div class="actions">
+      <a class="btn btn-primary" href="/blog">Read my blog</a>
+      <a class="btn" href="/about">See my skills</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <CodeCard />
+    <p class="muted caption">That's me as a TypeScript object. The longer version is on the <a href="/about">About page</a>.</p>
+  </section>
+
+  <section class="section">
+    <h2>Latest writing</h2>
+    {latest.map((post) => <PostCard post={post} />)}
+    {latest.length === 0 && <p class="muted">No posts yet. Add a Markdown file to src/content/blog.</p>}
+    <p><a href="/blog">All posts</a></p>
+  </section>
+</BaseLayout>
+
+<style>
+  .caption {
+    margin-top: 0.75rem;
+    font-size: 0.95rem;
+  }
+</style>

@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SkillGroup from '../components/SkillGroup.astro';
+import { skillGroups, learningNow } from '../data/skills';
+import { site } from '../data/site';
+---
+
+<BaseLayout title="About" description="Skills, tools and what I'm learning right now.">
+  <h1>About me</h1>
+  <p class="lead">
+    I started programming because I wanted to build things people can open in a browser and use. I'm
+    still early in the journey, and I learn best by building real projects and writing about them.
+  </p>
+
+  <section class="section">
+    <h2>Skills</h2>
+    {skillGroups.map((group) => <SkillGroup group={group} />)}
+  </section>
+
+  <section class="section">
+    <h2>Learning next</h2>
+    <p>These are the topics I'm working on now.</p>
+    <ul>
+      {learningNow.map((item) => <li>{item}</li>)}
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2>Get in touch</h2>
+    <p>
+      The best way to reach me is by <a href={site.links.email}>email</a>. You can also find me on
+      <a href={site.links.github} rel="noopener">GitHub</a> and
+      <a href={site.links.linkedin} rel="noopener">LinkedIn</a>.
+    </p>
+  </section>
+</BaseLayout>

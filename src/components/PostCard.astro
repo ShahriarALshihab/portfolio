@@ -1,0 +1,72 @@
+---
+import { formatDate, readingTime, type Post } from '../utils/posts';
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+const { title, description, date, tags, draft } = post.data;
+---
+
+<article class="post">
+  <h3><a href={`/blog/${post.id}/`}>{title}</a></h3>
+  <p class="meta muted">
+    <time datetime={date.toISOString()}>{formatDate(date)}</time>
+    <span>{readingTime(post.body)} min read</span>
+    {draft && <strong class="draft">Draft</strong>}
+  </p>
+  <p>{description}</p>
+  {
+    tags.length > 0 && (
+      <ul class="tags">
+        {tags.map((tag) => (
+          <li>{tag}</li>
+        ))}
+      </ul>
+    )
+  }
+</article>
+
+<style>
+  .post {
+    padding-block: 1.5rem;
+    border-top: 1px solid var(--line);
+  }
+  h3 {
+    margin-bottom: 0.25rem;
+    font-size: 1.4rem;
+  }
+  h3 a {
+    color: var(--text);
+    text-decoration: none;
+  }
+  h3 a:hover {
+    color: var(--accent);
+  }
+  .meta {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+  }
+  .draft {
+    color: var(--accent);
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .tags li {
+    padding: 0.1rem 0.65rem;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+</style>

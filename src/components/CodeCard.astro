@@ -1,0 +1,52 @@
+---
+// The home page's "about me" card, written as a TypeScript object.
+// The values come from src/data/site.ts.
+import { me } from '../data/site';
+---
+
+<figure class="card">
+  <figcaption>shihab.ts</figcaption>
+<pre><code><span class="kw">const</span> shihab: <span class="kw">Developer</span> = {"{"}
+  <span class="key">name</span>: <span class="str">"{me.name}"</span>,
+  <span class="key">location</span>: <span class="str">"{me.location}"</span>,
+  <span class="key">role</span>: <span class="str">"{me.role}"</span>,
+  <span class="key">stack</span>: [{me.stack.map((item, i) => <Fragment><span class="str">"{item}"</span>{i < me.stack.length - 1 ? ', ' : ''}</Fragment>)}],
+  <span class="key">learning</span>:  [{me.learning.map((item,i)=> <Fragment><span class="str">"{item}"</span>{i < me.learning.length - 1 ? ', ': ' '}</Fragment>)}], 
+  <span class="key">openTo</span>: <span class="str">"{me.openTo}"</span>,
+{"}"};</code></pre>
+</figure>
+
+<style>
+  .card {
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid var(--code-line);
+    border-radius: var(--radius);
+    background: var(--code-bg);
+    color: var(--code-text);
+  }
+  figcaption {
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid var(--code-line);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--tk-key);
+  }
+  pre {
+    margin: 0;
+    padding: 1.1rem 1rem 1.25rem;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    line-height: 1.75;
+  }
+  .kw {
+    color: var(--tk-kw);
+  }
+  .key {
+    color: var(--tk-key);
+  }
+  .str {
+    color: var(--tk-str);
+  }
+</style>
